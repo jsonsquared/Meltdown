@@ -1,0 +1,7 @@
+BUGS
+
+moving to the outter boundries of the game crashes the server
+
+
+float score above the piece that just triggered it
+

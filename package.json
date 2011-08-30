@@ -1,0 +1,12 @@
+{
+    "name": "jelly-butter-peanut"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": "2.4.3"
+    , "jade": ">= 0.0.1"
+    , "nko": "*"
+    , "socket.io": "0.7.9"
+    , "redis-node": "0.4.0"
+  }
+}

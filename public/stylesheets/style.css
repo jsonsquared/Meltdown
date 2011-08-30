@@ -1,0 +1,155 @@
+body {
+  padding: 50px;
+  font: 7px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.hud {
+    position:absolute;
+}
+
+#container {
+    position:absolute;
+    top:0px;
+}
+#cr-stage {
+    margin:0 auto;
+    position:relative;
+    top:60px;
+    opacity:.85;
+    border:3px solid #ddd;
+    box-shadow:0px 0px 20px #000;
+    -webkit-box-shadow:0px 0px 20px #000;
+    -moz-box-shadow: 0px 0px 20px #000;
+}
+
+#badguy {
+    background-image:url(../images/badguy.png);
+    top:10px;
+    width:134px;
+    height:100px;
+    display:none;
+}
+
+#goodguy {
+    background-image:url(../images/goodguy.png);
+    top:14px;
+    width:97px;
+    height:100px;
+    display:none;
+}
+
+#badhand {
+    background-image:url(../images/badhand_pink.png);
+    background-repeat:no-repeat;
+    top:73px;
+    width:112px;
+    height:85px;
+    z-index:100;
+    display:none;
+}
+
+#goodhand {
+    background-image:url(../images/goodhand_pink.png);
+    background-repeat:no-repeat;
+    top:52px;
+    width:148px;
+    height:80px;
+    z-index:100;
+    display:none;
+}
+#logo {
+    background-image:url(../images/logo.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    height:49px;
+    width:100%;
+    position:relative;
+    top:60px;
+}
+body {
+    background-image:url(../images/background.jpg);
+    background-position: top center;
+}
+
+#goodscore {
+display:none;
+  top: 20px;
+  left:130px;
+  color:#fff;
+  font-size: 55px;
+  font-weight: bold;
+  font-family: "VT323";
+}
+
+#badscore {
+    display:none;
+    top: 20px;
+    right:180px;
+    text-align:right;
+    color:#000;
+  font-size: 55px;
+  font-weight: bold;
+  font-family: "VT323";
+  text-align: right;
+}
+
+.scoremodal {
+  font-family: "VT323";
+  display: block;
+  position: absolute;
+  text-align:center;
+  width:500px;
+  top:200px;
+  height: 200px;
+  font-size: 90px;
+  color: #fff;
+  opacity: 0;
+  z-index: 10000;
+}
+
+#choosegood {
+    cursor:pointer;
+    font-family: "VT323";
+    background-image:url(../images/choose_good.png);
+    width:345px;
+    height:174px;
+    left:150px;
+    top:250px;
+    padding-top:115px;
+    padding-left:25px;
+    color:#fff;
+    font-size:27px;
+    background-repeat:no-repeat;
+}
+
+#choosebad {
+    cursor:pointer;
+    background-image:url(../images/choose_bad.png);
+    font-family: "VT323";
+    width:345px;
+    height:174px;
+    right:60px;
+    top:250px;
+    padding-top:115px;
+    padding-left:96px;
+    color:#fff;
+    font-size:27px;
+    background-repeat:no-repeat;
+}
+
+#credits {
+    color:#fff;
+    font-size:14px;
+    text-align:center;
+    margin-top:60px;
+    background:rgba(0,0,0,.75);
+    line-height:40px;
+}
+
+#node_vote {
+    top:5px;
+}
