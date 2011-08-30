@@ -34,6 +34,10 @@ var game = {
     board:[]
 }
 
+if((window.location+'').indexOf('#dev')<0) {
+    console = { log:function(m) { /* om nom nom */ } }
+}
+
 for(var x = 0; x<game.size_x; x++) {
    game.DOM_board[x] = [];
    for(var y = 0; y<game.size_y; y++) {
