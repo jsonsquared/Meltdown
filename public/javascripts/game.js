@@ -34,7 +34,7 @@ var game = {
     board:[]
 }
 
-if((window.location+'').indexOf('#dev')<0) {
+if(window.location.hash !== '#dev') {
     console = { log:function(m) { /* om nom nom */ } }
 }
 
