@@ -438,7 +438,7 @@ function increment_score(side, amount) {
 }
 
 function reset_player_piece(p) {
-    game.players[p].x = rand(35,45);//INIT_PIECE_X;
+    game.players[p].x = rand(15,game.size_x-15);//INIT_PIECE_X;
     game.players[p].y = INIT_PIECE_Y;
     game.players[p].piece = game.players[p].side == GOOD ? rand(1,3) : rand(4,6);
 
