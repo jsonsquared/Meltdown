@@ -12,6 +12,7 @@ var render = {
                         zIndex:200,
                         backgroundImage:'url(images/goodhand_' + handcolor + '.png)'
                     })
+                    .stop()
                     .animate({
                         left:game.players[p].x*game.spriteWidth-110
                     },100)
@@ -24,6 +25,7 @@ var render = {
                         zIndex:200,
                         backgroundImage:'url(images/badhand_' + handcolor + '.png)'
                     })
+                    .stop()
                     .animate({
                         zIndex:200,
                         left:game.players[p].x*game.spriteWidth-30
@@ -34,7 +36,6 @@ var render = {
 
             if(typeof game.DOM_players[p] == 'undefined') {
                 game.DOM_players[p] = Crafty.e('2D, ' + game.drawEngine)
-                //console.log('creating DOM element for ' + p + '| side: ' + game.players[p].side + ', piece: ' + game.players[p].piece)
             }
 
             game.DOM_players[p]
@@ -49,11 +50,10 @@ var render = {
             .removeComponent('-1')
             .removeComponent('-2')
             .removeComponent('-3')
-//            .addComponent(p==game.me ? 'player_me' : 'player_not_me')
             .addComponent(game.players[p].piece+ '')
         }
-//        $('.player_me').css({opacity:.5,border:'2px solid #fff'})
-        //$('.player_not_me').fadeTo(0,.5)
+
+
     },
 
     board:function() {
@@ -61,7 +61,8 @@ var render = {
         for(var x = 0; x < game.size_x; x++) {
             for(var y = 0; y < game.size_y; y++) {
                 if(typeof game.DOM_board[x][y]  == 'object') {
-                    game.DOM_board[x][y].undraw()
+                    game.DOM_board[x][y].destroy()
+                    game.DOM_board[x][y] = 0;
                 }
             }
         }
@@ -70,7 +71,7 @@ var render = {
             for(var y = 0; y < game.size_y; y++) {
                 if(game.board[x][y]) {
                     game.DOM_board[x][y] =
-                        Crafty.e('2D, Color, ' + game.drawEngine)
+                        Crafty.e('2D, Color, Tween, ' + game.drawEngine)
                         .attr({
                             x:x * game.spriteWidth,
                             y:y * game.spriteHeight
@@ -84,28 +85,34 @@ var render = {
     },
 
     piece:function(piece) {
+        console.log('drawing piece')
+        console.log(piece.x + ', ' + piece.y + ' = ' + piece.piece)
         // if there is already a piece here, kill it first
-        // console.log('rendering piece');
-        //         console.log(piece)
-
-        // console.log('crafty has this as:')
-        //        console.log(game.DOM_board[piece.x][piece.y])
         if(typeof game.DOM_board[piece.x][piece.y]  == 'object') {
             game.DOM_board[piece.x][piece.y].destroy();
             game.DOM_board[piece.x][piece.y] = 0;
         }
 
-        // console.log('did you die? should NOT be object')
-        //        console.log(typeof game.DOM_board[piece.x][piece.y])
-
-        game.DOM_board[piece.x][piece.y] = Crafty.e('2D, Color, ' + game.drawEngine)
+        game.DOM_board[piece.x][piece.y] = Crafty.e('2D, Color, Tween, ' + game.drawEngine)
             .attr({
                 x:piece.x * game.spriteWidth,
-                y:piece.y * game.spriteHeight
+                y:piece.y * game.spriteHeight,
+                alpha:1
             })
             .addComponent(piece.piece + '')
+            //.tween({alpha:1},20)
 
-        // console.log('did you make an object? SHOULD be object')
-        //    console.log(typeof game.DOM_board[piece.x][piece.y])
+            //flicker(game.DOM_board[piece.x][piece.y])
+
     }
+}
+
+function flicker(piece) {
+    setTimeout(function(piece) {
+        piece.tween({alpha:0},30)
+    },50,piece)
+    setTimeout(function(piece) {
+        piece.tween({alpha:1},30)
+    },350,piece)
+
 }
