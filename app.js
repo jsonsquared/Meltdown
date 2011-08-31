@@ -198,6 +198,9 @@ function movePlayer(p,dir) {
             }
         }
     }
+
+    // send this player their position as soon as it's available, the other players will get it in the firehose
+    io.sockets.emit('put',{player: p,x: game.players[p].x,y: game.players[p].y})
 }
 
 function piece_is_similar(a,b) {

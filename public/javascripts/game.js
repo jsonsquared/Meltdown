@@ -181,6 +181,11 @@ function setup_socket_events() {
             shakeScene();
         });
 
+        socket.on('put',function(data) {
+            game.players[data.p].x = data.x;
+            game.players[data.p].y = data.y;
+        });
+
         // socket.on('remove_column',function(x) {
         //     console.log('remove_column')
         //     for(var row = 0; row < game.size_y; row++) {
