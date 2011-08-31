@@ -497,9 +497,9 @@ function create_board(size_x, size_y) {
   }
 
   // add some computahhhs
-  for(var i = 1; i <= 40; i++) {
-    var y = rand(Math.round(game.size_y / 3 * 2), size_y-1);
-    var x = rand(1, size_x);
+  for(var i = 1; i <= 3000; i++) {
+    var y = rand(Math.round((game.size_y-1) / 3 * 2), size_y-1);
+    var x = rand(0, size_x-1);
 
     // times 10 equal computahh piece
    game.board[x][y] = rand(7,9)
