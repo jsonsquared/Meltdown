@@ -56,10 +56,10 @@ function float_message(text) {
                     $(which).remove()
                 });
             },1000,this)
-        })
+        }
+    )
 
 }
-
 
 function rand(from,to) {
     return Math.round(Math.random() * (to - from) + from);
@@ -128,8 +128,16 @@ function setup_socket_events() {
         socket.on('remove_piece',function(data) {
             game.board[data.x][data.y] = 0;
             if(typeof game.DOM_board[data.x][data.y] == 'object') {
-                game.DOM_board[data.x][data.y].undraw();
-                game.DOM_board[data.x][data.y] = 0;
+
+                setTimeout(function(d,y) {
+                    game.DOM_board[d.x][d.y].tween({
+                        alpha:0
+                    },70)
+                },0,data);
+                setTimeout(function(d) {
+                    game.DOM_board[d.x][d.y].destroy();
+                    //game.DOM_board[d.x][d.y] = 0;
+                },1000,data)
             }
         });
 
@@ -172,16 +180,21 @@ function setup_socket_events() {
             shakeScene();
         });
 
-        socket.on('remove_column',function(x) {
-            for(var row = 0; row < game.size_y; row++) {
-                console.log(game.DOM_board[x][row]);
-                if(typeof game.DOM_board[x][row] == 'object') {
-                    game.board[x][row] = 0;
-                    game.DOM_board[x][row].undraw();
-                    game.DOM_board[x][row] = 0;
-                }
-            }
-        });
+        // socket.on('remove_column',function(x) {
+        //     console.log('remove_column')
+        //     for(var row = 0; row < game.size_y; row++) {
+        //         console.log(game.DOM_board[x][row]);
+        //         if(typeof game.DOM_board[x][row] == 'object') {
+        //             game.DOM_board[x][y].tween({
+        //                 alpha:0,
+        //                 y:game.DOM_board[x][y]._y-10
+        //             },40)
+        //             game.board[x][row] = 0;
+        //             //game.DOM_board[x][row].destroy();
+        //             //game.DOM_board[x][row] = 0;
+        //         }
+        //     }
+        // });
 
         socket.on('drop_player',function(player) {
             game.DOM_players[player].destroy();
@@ -205,11 +218,13 @@ function join_game() {
     setTimeout(function() { float_message('Use arrow keys<br> to move') }, 1000);
     setTimeout(function() { float_message('Stack matching colors'); }, 4000);
 
-
-    //load takes an array of assets and a callback when complete
-    Crafty.load(["/images/sprite.png"], function () {
-        Crafty.scene("main"); //when everything is loaded, run the main scene
-    });
+    // start the game once the animations hand finish
+    setTimeout(function() {
+        //load takes an array of assets and a callback when complete
+        Crafty.load(["/images/sprite.png"], function () {
+            Crafty.scene("main"); //when everything is loaded, run the main scene
+        });
+    },500)
 }
 
 $(function() {
