@@ -31,7 +31,8 @@ var game = {
     DOM_players:{},
     DOM_board:[],
     players:{},
-    board:[]
+    board:[],
+    movementSpeed:100
 }
 
 if(window.location.hash !== '#dev') {
@@ -222,8 +223,9 @@ function join_game() {
     setTimeout(function() {
         //load takes an array of assets and a callback when complete
         Crafty.load(["/images/sprite.png"], function () {
-            Crafty.scene("main"); //when everything is loaded, run the main scene
+            game.mainScene = Crafty.scene("main"); //when everything is loaded, run the main scene
         });
+
     },500)
 }
 
@@ -307,12 +309,12 @@ $(function() {
             down: 'S',
             left: 'A',
             right:'D',
-            up_secondary:'UP_ARRO',
+            up_secondary:'UP_ARROW',
             down_secondary:'DOWN_ARROW',
             left_secondary:'LEFT_ARROW',
             right_secondary:'RIGHT_ARROW'
             },
-        100,game.spriteWidth)
+        game.movementSpeed,game.spriteWidth)
 
     });
 
