@@ -182,8 +182,8 @@ function setup_socket_events() {
         });
 
         socket.on('put',function(data) {
-            game.players[data.p].x = data.x;
-            game.players[data.p].y = data.y;
+            game.players[data.player].x = data.x;
+            game.players[data.player].y = data.y;
         });
 
         // socket.on('remove_column',function(x) {
