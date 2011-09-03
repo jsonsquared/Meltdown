@@ -52,8 +52,7 @@ app.configure(function() {
     app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('development',
-function() {
+app.configure('development', function() {
     app.use(express.errorHandler({
         dumpExceptions: false,
         showStack: false
@@ -61,33 +60,28 @@ function() {
 
 });
 
-app.configure('production',
-function() {
+app.configure('production', function() {
     app.use(express.errorHandler());
     port_to_use = 80;
 });
 
 // Routes
-app.get('/',
-function(req, res) {
+app.get('/', function(req, res) {
     res.render('index', {
         title: 'MELTDOWN'
     });
 });
 
-app.get('/scoreboard/reset',
-function(req, res) {
+app.get('/scoreboard/reset', function(req, res) {
     redis_client.flushdb();
     res.send('ok');
 });
 
 
 // Socket.io
-io.sockets.on('connection',
-function(socket) {
+io.sockets.on('connection', function(socket) {
 
-    socket.on('disconnect',
-    function(data) {
+    socket.on('disconnect', function(data) {
         delete game.players[socket.id];
         game.total_players--;
     });
@@ -96,8 +90,7 @@ function(socket) {
     retrieve_score(GOOD);
     retrieve_score(BAD);
 
-    socket.on('register',
-    function(data) {
+    socket.on('register', function(data) {
         console.log('join')
         game.players[socket.id] = {
             id: socket.id,
@@ -112,8 +105,7 @@ function(socket) {
         socket.broadcast.emit('players', game.players);
     });
 
-    socket.on('move',
-    function(data) {
+    socket.on('move', function(data) {
         movePlayer(socket.id, data)
     });
 
@@ -487,8 +479,7 @@ function check_adjacents(x, y) {
 
 function retrieve_score(side) {
     var s = side;
-    redis_client.hget("scoreboard", "side" + side,
-    function(err, score) {
+    redis_client.hget("scoreboard", "side" + side, function(err, score) {
         console.log('Grabbed most recent score, it is ' + score);
         io.sockets.emit('score_update', {
             score: score,
@@ -499,8 +490,7 @@ function retrieve_score(side) {
 
 function increment_score(side, amount) {
     var s = side;
-    redis_client.hincrby("scoreboard", "side" + side, amount,
-    function(err, score) {
+    redis_client.hincrby("scoreboard", "side" + side, amount, function(err, score) {
         console.log('Updated score to ' + score);
         io.sockets.emit('score_update', {
             score: score,
